@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cord VC Particle Animation</title>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+    }
+    #tsparticles {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="tsparticles"></div>
+  <script>
+    tsParticles.load("tsparticles", {
+      fullScreen: { enable: true },
+      background: { color: "#000000" },
+      fpsLimit: 60,
+      particles: {
+        number: { value: 0 }, // We'll use emitters instead
+        color: { value: "#ffffff" },
+        shape: { type: "circle" },
+        opacity: {
+          value: 0.8,
+          random: false
+        },
+        size: {
+          value: 3,
+          random: true
+        },
+        move: {
+          enable: true,
+          speed: 1,
+          direction: "none",
+          random: false,
+          straight: false,
+          outModes: { default: "destroy" }
+        }
+      },
+      emitters: [
+        {
+          position: { x: 0, y: 25 },
+          rate: { quantity: 1, delay: 0.02 },
+          particles: {
+            move: {
+              path: {
+                enable: true,
+                delay: 0,
+                generator: "braidPath1"
+              }
+            }
+          }
+        },
+        {
+          position: { x: 0, y: 75 },
+          rate: { quantity: 1, delay: 0.02 },
+          particles: {
+            move: {
+              path: {
+                enable: true,
+                delay: 0,
+                generator: "braidPath2"
+              }
+            }
+          }
+        }
+      ],
+      manualParticles: [],
+      detectRetina: true,
+      path: {
+        generators: {
+          braidPath1: {
+            generate: (p) => {
+              const x = p.x + 1.2;
+              const y = 30 * Math.sin(0.4 * x) + 10 * Math.sin(1.6 * x) + 35;
+              return { x, y };
+            }
+          },
+          braidPath2: {
+            generate: (p) => {
+              const x = p.x + 1.2;
+              const y = -30 * Math.sin(0.4 * x) - 10 * Math.sin(1.6 * x) + 65;
+              return { x, y };
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
